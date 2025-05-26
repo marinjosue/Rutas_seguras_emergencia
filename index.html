@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rutas de Evacuación - Algoritmo GWO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Rutas de Evacuación - Algoritmo GWO</h1>
+
+  <div class="main-container">
+    <!-- Contenedor del mapa -->
+    <div class="map-container">
+      <div id="map"></div>
+      
+      <!-- Controles del mapa -->
+      <div class="map-controls">
+        <button id="btn-calcular-ruta" disabled>
+          CALCULAR RUTA
+        </button>
+        <button id="btn-centrar-ubicacion" style="margin-left:8px;">
+          CENTRAR EN MI UBICACIÓN
+        </button>
+      </div>
+    </div>
+
+    <!-- Panel lateral derecho -->
+    <div class="side-panel">
+      <div class="panel-header">
+        <h2>Rutas Evaluadas (GWO)</h2>
+      </div>
+      
+      <div class="panel-content">
+        <div class="table-container">
+          <table id="tabla-resultados">
+            <thead>
+              <tr>
+                <th>Zona</th>
+                <th>Dist. (m)</th>
+                <th>Dur. (s)</th>
+                <th>Riesgo</th>
+                <th>Giros</th>
+                <th>Costo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="6" class="no-results">
+                  Haz clic en "CALCULAR RUTA" para ver los resultados
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
