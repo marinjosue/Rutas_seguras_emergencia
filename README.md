@@ -1,117 +1,213 @@
-# Rutas de Evacuación con Algoritmo GWO
+# Sistema de Rutas de Evacuación con Algoritmo GWO
 
-## 1. Introducción
+## 📋 Descripción del Proyecto
 
-### Contexto general del problema o necesidad
-Las zonas cercanas a volcanes activos presentan riesgos significativos para la población, especialmente ante la ocurrencia de lahares u otros eventos eruptivos. La evacuación eficiente y segura es fundamental para salvar vidas, pero seleccionar rutas óptimas considerando múltiples factores (distancia, tiempo, riesgo, giros) es un desafío complejo.
+Este proyecto es un sistema web interactivo de planificación de rutas de evacuación para emergencias volcánicas, desarrollado para la Universidad de las Fuerzas Armadas ESPE. Utiliza el algoritmo **Grey Wolf Optimizer (GWO)** para encontrar las rutas más seguras hacia zonas de evacuación, considerando múltiples factores como distancia, tiempo, riesgo y complejidad del recorrido.
 
-### Justificación del proyecto
-La toma de decisiones en situaciones de emergencia requiere herramientas que integren información geoespacial y criterios de seguridad. Este proyecto busca proporcionar una solución interactiva y automatizada para la selección de rutas de evacuación óptimas, apoyando a usuarios y autoridades en la gestión de riesgos volcánicos.
+## 🎯 Objetivos
 
-### Alcance del trabajo
-El sistema desarrollado permite calcular, comparar y visualizar rutas de evacuación desde cualquier punto hacia zonas seguras, considerando zonas de peligro y múltiples criterios de optimización. La solución es extensible a otros escenarios de riesgo y puede integrarse con diferentes fuentes de datos geográficos.
+- **Objetivo Principal**: Proporcionar un sistema de navegación segura durante emergencias volcánicas
+- **Objetivos Específicos**:
+  - Calcular rutas óptimas usando algoritmos de optimización
+  - Evaluar el riesgo de las rutas en tiempo real
+  - Proporcionar indicaciones de voz para la navegación
+  - Visualizar zonas seguras y peligrosas en un mapa interactivo
 
-### Breve descripción del enfoque adoptado
-Se implementó el algoritmo metaheurístico Grey Wolf Optimizer (GWO) para evaluar y seleccionar rutas óptimas, integrando datos geoespaciales y visualización en tiempo real mediante Leaflet y Turf.js.
+## 🏗️ Estructura del Proyecto
 
-## 2. El problema abordado
+```
+Rutas_seguras_emergencia/
+├── index.html                 # Página principal de la aplicación
+├── README.md                 # Documentación del proyecto
+├── css/
+│   └── style.css            # Estilos de la aplicación
+├── js/
+│   ├── main.js              # Lógica principal y manejo del mapa
+│   ├── gwo.js               # Implementación del algoritmo GWO
+│   ├── rutas.js             # Carga de datos geográficos
+│   ├── ubicacion.js         # Detección automática de ubicación
+│   └── main-utils.js        # Utilidades compartidas
+├── data/
+│   ├── zonas_seguras.geojson    # Puntos de evacuación seguros
+│   ├── zonas_peligro.geojson    # Áreas de riesgo volcánico
+│   ├── zona_ESPE.geojson        # Perímetro del campus ESPE
+│   └── rutas_ESPE.geojson       # Rutas predefinidas del campus
+└── img/
+    └── ubicacion.png            # Íconos para marcadores
+```
 
-La necesidad de evacuar rápidamente ante la amenaza de lahares volcánicos exige rutas que minimicen la exposición al peligro, el tiempo y la distancia recorrida, considerando además la facilidad de tránsito (número de giros). Sin una herramienta adecuada, la selección manual de rutas puede ser ineficiente y riesgosa.
+## 🚀 Características Principales
 
-## 3. Objetivo del proyecto
+### 1. **Algoritmo Grey Wolf Optimizer (GWO)**
+- Optimización multiobjetivo para selección de rutas
+- Factores evaluados:
+  - **Distancia** (40%): Longitud total del recorrido
+  - **Tiempo** (40%): Duración estimada del viaje
+  - **Riesgo** (15%): Proximidad a zonas peligrosas
+  - **Complejidad** (5%): Número de giros en la ruta
 
-### Objetivo general
-Desarrollar una herramienta interactiva que calcule y visualice rutas de evacuación óptimas hacia zonas seguras, considerando zonas de peligro y múltiples criterios, para mejorar la toma de decisiones en situaciones de emergencia volcánica.
+### 2. **Interfaz de Usuario Interactiva**
+- Mapa interactivo con Leaflet.js
+- Selección manual de ubicación mediante clic
+- Geolocalización automática del usuario
+- Tabla de resultados con rutas ordenadas por seguridad
 
-### Objetivos específicos
-- Integrar datos geoespaciales de zonas de riesgo y zonas seguras en un sistema interactivo.
-- Implementar el algoritmo GWO para optimizar rutas considerando distancia, duración, riesgo y número de giros.
-- Visualizar en tiempo real las rutas evaluadas y la mejor opción en un mapa interactivo.
-- Permitir la selección manual o automática de la ubicación del usuario.
-- Evaluar el desempeño y la efectividad del sistema en escenarios simulados.
+### 3. **Sistemas de Navegación**
+- Indicaciones de voz en español
+- Seguimiento en tiempo real de la ubicación
+- Alertas automáticas de emergencia
+- Visualización de rutas con diferentes colores
 
-## 4. Descripción del algoritmo seleccionado
+### 4. **Datos Geográficos**
+- Zonas seguras de evacuación
+- Áreas de riesgo volcánico
+- Contorno del campus universitario
+- Rutas predefinidas del campus
 
-### Nombre del algoritmo
-Grey Wolf Optimizer (GWO)
+## 🛠️ Tecnologías Utilizadas
 
-### Funcionamiento general
-GWO es un algoritmo de optimización inspirado en la jerarquía social y la estrategia de caza de los lobos grises. Simula la persecución y captura de presas, permitiendo explorar y explotar el espacio de soluciones para encontrar óptimos globales.
+### Frontend
+- **HTML5**: Estructura de la aplicación
+- **CSS3**: Estilos y responsive design
+- **JavaScript ES6+**: Lógica de la aplicación
+- **Leaflet.js**: Mapas interactivos
+- **Turf.js**: Análisis geoespacial
 
-### Por qué se eligió este algoritmo
-GWO es eficiente para problemas multiobjetivo y no requiere derivadas, lo que lo hace adecuado para optimizar rutas considerando criterios heterogéneos y restricciones geoespaciales.
+### APIs y Servicios
+- **OpenRouteService**: Cálculo de rutas peatonales
+- **Geolocation API**: Detección de ubicación del usuario
+- **Speech Synthesis API**: Indicaciones de voz
 
-### Ventajas para este caso
-- Capacidad de manejar múltiples criterios simultáneamente.
-- Flexibilidad para adaptarse a diferentes escenarios y restricciones.
-- Facilidad de integración con sistemas de información geográfica.
+### Algoritmos
+- **Grey Wolf Optimizer**: Optimización de rutas
+- **Análisis geoespacial**: Cálculo de riesgos y proximidades
 
-## 5. Mejoras o adaptaciones realizadas al algoritmo
+## 📱 Funcionalidades
 
-- **Normalización de criterios:** Todos los factores (distancia, duración, riesgo, giros) se normalizan para comparabilidad.
-- **Ponderación ajustable:** Se asignan pesos a cada criterio según su importancia.
-- **Cálculo de riesgo geoespacial:** Uso de Turf.js para evaluar proximidad e intersección con zonas de peligro.
-- **Integración con Leaflet:** Visualización de rutas, zonas seguras y peligrosas en tiempo real.
-- **Optimización de rendimiento:** Selección eficiente de rutas candidatas y actualización dinámica de resultados.
+### Detección de Ubicación
+```javascript
+// Geolocalización automática al cargar
+navigator.geolocation.getCurrentPosition(callback);
 
-## 6. Desarrollo de la solución
+// Seguimiento continuo para navegación
+navigator.geolocation.watchPosition(callback);
+```
 
-### Descripción del sistema desarrollado
-La aplicación web permite al usuario seleccionar su ubicación y calcular rutas de evacuación óptimas hacia zonas seguras, mostrando resultados en una tabla y en el mapa.
+### Cálculo de Rutas
+```javascript
+// Evaluación con algoritmo GWO
+const resultados = await evaluarRutasConGWO(
+  ubicacionUsuario, 
+  zonasSeguras, 
+  zonasPeligro, 
+  API_KEY
+);
+```
 
-### Integración del algoritmo
-El GWO evalúa rutas generadas entre el punto de inicio y las zonas seguras, calculando el costo total según los criterios definidos.
+### Indicaciones de Voz
+```javascript
+// Alertas de emergencia
+speechSynthesis.speak(new SpeechSynthesisUtterance(mensaje));
 
-### Lógica del flujo general
-1. El usuario selecciona su ubicación.
-2. El sistema genera rutas candidatas hacia zonas seguras.
-3. Para cada ruta, se calculan distancia, duración, riesgo y giros.
-4. El GWO normaliza y pondera los criterios, seleccionando la mejor ruta.
-5. Se visualizan los resultados en la interfaz.
+// Navegación paso a paso
+reproducirIndicacionVoz("Gira a la izquierda");
+```
 
-### Consideraciones técnicas
-- Uso de Leaflet para mapas interactivos.
-- Turf.js para análisis geoespacial.
-- Datos en formato GeoJSON para zonas de riesgo y seguras.
-- Interfaz moderna y responsiva.
+## 🔧 Instalación y Configuración
 
-## 7. Resultados obtenidos
+### Requisitos Previos
+- Navegador web moderno (Chrome, Firefox, Safari, Edge)
+- Conexión a internet para APIs externas
+- Permisos de geolocalización activados
 
-### Capturas de interfaz gráfica
+### Configuración
+1. **Clonar o descargar** el proyecto
+2. **Configurar API Key** de OpenRouteService en `main.js` y `gwo.js`:
+   ```javascript
+   const API_KEY = 'tu_api_key_aqui';
+   ```
+3. **Verificar rutas** de archivos GeoJSON en la carpeta `data/`
+4. **Abrir** `index.html` en un navegador web
 
-![Interfaz principal](capturas/interfaz_principal.png)
-![Tabla de rutas](capturas/tabla_rutas.png)
-![Ruta óptima](capturas/ruta_optima.png)
+### Estructura de APIs
+```javascript
+// OpenRouteService para rutas
+const API_ENDPOINT = "https://api.openrouteservice.org/v2/directions/foot-walking/geojson";
 
-### Comparación antes y después
-Antes: Selección manual y subjetiva de rutas, sin considerar todos los factores.
-Después: Selección automática y óptima, considerando múltiples criterios y restricciones.
+// Headers requeridos
+headers: {
+  'Authorization': API_KEY,
+  'Content-Type': 'application/json'
+}
+```
 
-### Análisis de desempeño
-- Reducción del tiempo y distancia de evacuación.
-- Evitación de zonas de alto riesgo.
-- Rutas más directas y seguras.
+## 📊 Algoritmo GWO - Detalles Técnicos
 
-## 8. Validación de la solución
+### Función de Costo
+```javascript
+costo = 0.4 * distancia_normalizada + 
+        0.4 * tiempo_normalizado + 
+        0.15 * riesgo_normalizado + 
+        0.05 * giros_normalizados
+```
 
-- El sistema genera rutas que minimizan la exposición a zonas peligrosas y optimizan el tiempo de evacuación.
-- Ejemplos prácticos muestran rutas alternativas y la mejor opción según los criterios definidos.
-- Limitaciones: Dependencia de la calidad de los datos geoespaciales y de la conectividad de la red vial.
+### Evaluación de Riesgo
+- **Riesgo Alto (1.0)**: Ruta intersecta zona peligrosa
+- **Riesgo Medio (0.8)**: Ruta a menos de 100m de zona peligrosa  
+- **Riesgo Bajo (0.1)**: Ruta alejada de zonas peligrosas
 
-## 9. Conclusiones
+### Normalización de Datos
+```javascript
+valor_normalizado = (valor - valor_minimo) / (valor_maximo - valor_minimo)
+```
 
-1. **El algoritmo GWO permite seleccionar rutas de evacuación óptimas considerando criterios relevantes para la seguridad.**
-2. **La integración de datos geoespaciales y visualización en tiempo real facilita la toma de decisiones rápidas y fundamentadas.**
-3. **El sistema es flexible y puede adaptarse a diferentes escenarios de riesgo y tipos de amenazas.**
-4. **La automatización reduce errores humanos y mejora la eficiencia en situaciones críticas.**
+## 🎨 Interfaz de Usuario
 
-## 10. Recomendaciones
+### Componentes Principales
+- **Mapa Principal**: Visualización de ubicación, rutas y zonas
+- **Panel de Control**: Botones para cálculo y centrado
+- **Tabla de Resultados**: Comparación de rutas evaluadas
+- **Indicadores Visuales**: Colores para diferentes tipos de información
 
-- Integrar datos de tráfico en tiempo real para mejorar la precisión de las rutas.
-- Ampliar el sistema para otros tipos de desastres naturales.
-- Desarrollar una versión móvil para acceso rápido en campo.
-- Realizar pruebas con usuarios finales para validar la usabilidad y efectividad.
+### Código de Colores
+- **Azul**: Ruta recomendada principal
+- **Rojo**: Ruta seleccionada por el usuario
+- **Verde**: Zonas seguras de evacuación
+- **Rojo/Amarillo**: Zonas de peligro volcánico
 
----
+## 🔍 Casos de Uso
 
-*Este proyecto demuestra que la combinación de algoritmos metaheurísticos y tecnologías de mapas interactivos es una solución efectiva para problemas complejos de evacuación y gestión de riesgos.*
+### Escenario 1: Evacuación de Emergencia
+1. El sistema detecta la ubicación del usuario automáticamente
+2. Se reproduce alerta de voz sobre erupción volcánica
+3. Se calculan y muestran las 3 mejores rutas de evacuación
+4. El usuario selecciona una ruta y recibe navegación paso a paso
+
+### Escenario 2: Planificación Preventiva
+1. El usuario hace clic en una ubicación específica del mapa
+2. Se calculan rutas desde ese punto hacia zonas seguras
+3. Se evalúan y comparan diferentes opciones
+4. Se puede simular la navegación antes de una emergencia real
+
+## 🚨 Consideraciones de Seguridad
+
+- **Validación de datos**: Verificación de coordenadas y respuestas de API
+- **Manejo de errores**: Recuperación en caso de fallas de conectividad
+- **Alertas redundantes**: Múltiples canales de notificación (visual, auditivo)
+- **Rutas alternativas**: Siempre se proporcionan múltiples opciones
+
+## 📈 Posibles Mejoras Futuras
+
+- Integración con sistemas de alerta temprana
+- Actualización en tiempo real de condiciones de riesgo
+- Soporte para diferentes tipos de emergencias
+- Aplicación móvil nativa
+- Integración con sistemas de gestión de emergencias institucionales
+
+## 👥 Equipo de Desarrollo
+
+Proyecto desarrollado por Autepin  para la Universidad de las Fuerzas Armadas ESPE como parte del sistema de gestión de emergencias del campus.
+
+## 📄 Licencia
+
+Este proyecto está desarrollado con fines académicos para la Universidad de las Fuerzas Armadas ESPE.

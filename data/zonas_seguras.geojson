@@ -3,50 +3,113 @@
   "features": [
     {
       "type": "Feature",
-      "properties": { "nombre": "Estadio General Hugo Ortiz (ESPE)" },
+      "properties": {
+        "nombre": "Estadio General Hugo Ortiz (ESPE)"
+      },
       "geometry": {
         "type": "Point",
-        "coordinates": [ -78.44576212109932, -0.29481301190732806 ]
+        "coordinates": [
+          -78.44576212109932,
+          -0.29481301190732806
+        ]
       }
     },
     {
       "type": "Feature",
-      "properties": { "nombre": "Unidad Educativa Antares" },
+      "properties": {
+        "nombre": "Unidad Educativa Antares"
+      },
       "geometry": {
         "type": "Point",
-        "coordinates": [ -78.47551106342843, -0.2897222970357952 ]
+        "coordinates": [
+          -78.47551106342843,
+          -0.2897222970357952
+        ]
       }
     },
     {
       "type": "Feature",
-      "properties": { "nombre": "Barrio El Valle (Punto Alto de Reunión)" },
+      "properties": {
+        "nombre": "Barrio El Valle (Punto Alto de Reunión)"
+      },
       "geometry": {
         "type": "Point",
-        "coordinates": [ -78.37291492109928, -0.3727225416219259 ]
+        "coordinates": [
+          -78.37291492109928,
+          -0.3727225416219259
+        ]
       }
     },
     {
       "type": "Feature",
-      "properties": { "nombre": "Colegio Guillermo Mensi" },
+      "properties": {
+        "nombre": "Colegio Guillermo Mensi"
+      },
       "geometry": {
         "type": "Point",
-        "coordinates": [ -78.4400698052315, -0.3391271113557741 ]
+        "coordinates": [
+          -78.4400698052315,
+          -0.3391271113557741
+        ]
       }
     },
     {
       "type": "Feature",
-      "properties": { "nombre": "Zona posterior sur de la ESPE (Evacuación)" },
+      "properties": {
+        "nombre": "Zona posterior sur de la ESPE (Evacuación)"
+      },
       "geometry": {
         "type": "Point",
-        "coordinates": [ -78.44417132010794, -0.31739390410551943 ]
+        "coordinates": [
+          -78.44417132010794,
+          -0.31739390410551943
+        ]
       }
     },
     {
       "type": "Feature",
-      "properties": { "nombre": "Plazoleta central Rectorado (temporal)" },
+      "properties": {
+        "nombre": "Plazoleta central Rectorado (temporal)"
+      },
       "geometry": {
         "type": "Point",
-        "coordinates": [ -78.44351149673885, -0.3145615344417836 ]
+        "coordinates": [
+          -78.44351149673885,
+          -0.3145615344417836
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          -78.41399515879954,
+          -0.32484508204267115
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          -78.38381804454316,
+          -0.3309759362199429
+        ],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          -78.42835757352428,
+          -0.3038188325882061
+        ],
+        "type": "Point"
       }
     }
   ]

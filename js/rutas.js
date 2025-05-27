@@ -1,41 +1,54 @@
 export async function cargarZonasSeguras(map) {
-  const res = await fetch('data/zonas_seguras.geojson');
-  const data = await res.json();
-  L.geoJSON(data, {
-    onEachFeature: (feature, layer) => {
-      layer.bindPopup("Zona segura: " + feature.properties.nombre);
-      const coords = layer.getLatLng();
-      L.circle(coords, {
-        radius: 30,
-        color: 'green',
-        fillColor: '#0f0',
-        fillOpacity: 0.2
-      }).addTo(map);
-    },
-    pointToLayer: (feature, latlng) => {
-      return L.marker(latlng, {
-        icon: L.icon({
-          iconUrl: 'https://cdn-icons-png.flaticon.com/512/190/190411.png',
-          iconSize: [40, 40],
-          iconAnchor: [20, 40]
-        })
-      });
-    }
-  }).addTo(map);
-  return data;
+   const res = await fetch('../data/zonas_seguras.geojson');
+    const data = await res.json();
+
+    L.geoJSON(data, {
+      pointToLayer: (feature, latlng) => {
+        return L.marker(latlng, {
+          icon: L.icon({
+            iconUrl: 'img/ubicacion.png', // Asegúrate que esta ruta sea correcta
+            iconSize: [32, 32], // Ajusta al tamaño real de tu ícono
+            iconAnchor: [16, 32], // Punto donde se "ancla" al mapa
+            popupAnchor: [0, -32]  // Dónde aparece el popup
+          })
+        });
+      },
+      onEachFeature: (feature, layer) => {
+        layer.bindPopup("Zona segura: " + feature.properties.nombre);
+
+        // Agrega un círculo con centro en el punto del marker
+        L.circle(layer.getLatLng(), {
+          radius: 30,
+          color: 'green',
+          fillColor: '#0f0',
+          fillOpacity: 0.2
+        }).addTo(map);
+      }
+    }).addTo(map);
+
+    return data; // Return the GeoJSON data
 }
 
 export async function cargarZonasPeligro(map) {
-  const res = await fetch('data/peligro_lahar.geojson');
-  const data = await res.json();
-  L.geoJSON(data, {
-    style: {
-      color: 'red',
-      fillColor: 'red',
-      weight: 1,
-      fillOpacity: 0.5
-    }
-  }).addTo(map);
+  const response = await fetch('../data/zonas_peligro.geojson');
+const data = await response.json();
+    
+    L.geoJSON(data, {
+      style: (feature) => ({
+        fillColor: feature.properties.risk_level === 'high' ? '#dc3545' : '#ffc107',
+        color: '#fff',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.6
+      }),
+      onEachFeature: (feature, layer) => {
+        layer.bindPopup(`
+          <strong>${feature.properties.name}</strong><br>
+          Nivel de riesgo: ${feature.properties.risk_level}<br>
+          Tipo: ${feature.properties.hazard_type}
+        `);
+      }
+    }).addTo(map);
   return data;
 }
 

@@ -1,4 +1,15 @@
 export async function evaluarRutasConGWO(origen, zonasGeoJSON, peligroGeoJSON, apiKey) {
+    // Add error handling for undefined data
+    if (!zonasGeoJSON || !zonasGeoJSON.features) {
+      console.error("zonasGeoJSON is undefined or has no features");
+      return [];
+    }
+    
+    if (!peligroGeoJSON || !peligroGeoJSON.features) {
+      console.error("peligroGeoJSON is undefined or has no features");
+      return [];
+    }
+
     const zonas = zonasGeoJSON.features.map((f, i) => ({
     nombre: f.properties.nombre || `Zona ${i + 1}`,
     coords: {

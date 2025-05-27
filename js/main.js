@@ -48,12 +48,18 @@ function setRutaSeleccionadaLine(coords) {
 Promise.all([
   cargarZonasSeguras(map),
   cargarZonasPeligro(map)
-]).then(([zonas, peligro]) => {
-  zonasGeoJSON = zonas;
+]).then(([_, peligro]) => {
+  // Fix: Load zonasGeoJSON separately since cargarZonasSeguras doesn't return data
+  fetch('../data/zonas_seguras.geojson')
+    .then(res => res.json())
+    .then(data => {
+      zonasGeoJSON = data;
+    });
+  
   peligroGeoJSON = peligro;
 
   // Cargar zona_ESPE.geojson (contorno azul)
-  fetch('data/zona_ESPE.geojson')
+  fetch('../data/zona_ESPE.geojson')
     .then(res => res.json())
     .then(data => {
       L.geoJSON(data, {
@@ -67,7 +73,7 @@ Promise.all([
     });
 
   // Cargar rutas_ESPE.geojson (líneas verdes)
-  fetch('data/rutas_ESPE.geojson')
+  fetch('../data/rutas_ESPE.geojson')
     .then(res => res.json())
     .then(data => {
       L.geoJSON(data, {
