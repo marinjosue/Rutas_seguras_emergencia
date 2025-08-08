@@ -297,3 +297,321 @@ body {
   cursor: pointer;
   background: var(--primary-color);
 }
+
+/* Agregar al final del archivo components.css */
+
+/* ===== RESPONSIVE DESIGN PARA MÓVILES ===== */
+
+/* Tablets y pantallas medianas */
+@media screen and (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+    height: auto;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+  }
+  
+  .map-container {
+    order: 1;
+    min-height: 60vh;
+    flex: none;
+  }
+  
+  .side-panel {
+    order: 2;
+    width: 100%;
+    min-width: auto;
+    max-height: 40vh;
+    min-height: 300px;
+  }
+  
+  /* Header más compacto en tablet */
+  h1 {
+    height: 60px;
+    font-size: 1.3rem;
+    padding: 0 var(--spacing-lg);
+  }
+  
+  .map-controls {
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
+  }
+  
+  .map-controls button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.8rem;
+  }
+}
+
+/* Móviles grandes (768px - 480px) */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+  
+  h1 {
+    height: 50px;
+    font-size: 1.2rem;
+    padding: 0 var(--spacing-md);
+  }
+  
+  .main-container {
+    flex-direction: column;
+    height: calc(100vh - 50px);
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  /* MAPA PRINCIPAL - GRANDE EN MÓVIL */
+  .map-container {
+    order: 1;
+    flex: 1;
+    min-height: 70vh;
+    height: 70vh;
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  #map {
+    border-radius: 0;
+    height: 100%;
+  }
+  
+  /* Controles del mapa más compactos */
+  .map-controls {
+    padding: var(--spacing-sm) var(--spacing-md);
+    gap: var(--spacing-xs);
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .map-controls button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.75rem;
+    min-height: 40px;
+    flex: 1;
+    max-width: 45%;
+  }
+  
+  .btn-chatbot-fullscreen {
+    padding: var(--spacing-sm) var(--spacing-md) !important;
+    font-size: 0.75rem !important;
+    min-height: 40px !important;
+    flex: 1 !important;
+    max-width: 100% !important;
+    margin-top: var(--spacing-xs);
+  }
+  
+  /* Panel lateral compacto */
+  .side-panel {
+    order: 2;
+    width: 100%;
+    min-width: auto;
+    height: 30vh;
+    max-height: 30vh;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .panel-header {
+    padding: var(--spacing-md);
+  }
+  
+  .panel-header h2 {
+    font-size: 1rem;
+  }
+  
+  .panel-content {
+    flex: 1;
+    overflow: hidden;
+  }
+}
+
+/* Móviles estándar (480px - 320px) */
+@media screen and (max-width: 480px) {
+  h1 {
+    height: 45px;
+    font-size: 1rem;
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .main-container {
+    height: calc(100vh - 45px);
+  }
+  
+  /* MAPA AÚN MÁS GRANDE EN MÓVILES PEQUEÑOS */
+  .map-container {
+    min-height: 75vh;
+    height: 75vh;
+  }
+  
+  .map-controls {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    gap: var(--spacing-xs);
+  }
+  
+  .map-controls button {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.7rem;
+    min-height: 36px;
+  }
+  
+  .btn-chatbot-fullscreen {
+    padding: var(--spacing-xs) var(--spacing-sm) !important;
+    font-size: 0.7rem !important;
+    min-height: 36px !important;
+  }
+  
+  /* Panel lateral muy compacto */
+  .side-panel {
+    height: 25vh;
+    max-height: 25vh;
+  }
+  
+  .panel-header {
+    padding: var(--spacing-sm);
+  }
+  
+  .panel-header h2 {
+    font-size: 0.9rem;
+  }
+}
+
+/* Móviles muy pequeños (< 320px) */
+@media screen and (max-width: 320px) {
+  h1 {
+    height: 40px;
+    font-size: 0.9rem;
+    padding: 0 var(--spacing-xs);
+  }
+  
+  .main-container {
+    height: calc(100vh - 40px);
+  }
+  
+  /* MAPA MÁXIMO EN PANTALLAS MUY PEQUEÑAS */
+  .map-container {
+    min-height: 80vh;
+    height: 80vh;
+  }
+  
+  .map-controls {
+    padding: var(--spacing-xs);
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  .map-controls button {
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.65rem;
+    min-height: 32px;
+    padding: var(--spacing-xs);
+  }
+  
+  .side-panel {
+    height: 20vh;
+    max-height: 20vh;
+  }
+  
+  .panel-header {
+    padding: var(--spacing-xs);
+  }
+  
+  .panel-header h2 {
+    font-size: 0.8rem;
+  }
+}
+
+/* Orientación horizontal en móviles */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .main-container {
+    flex-direction: row;
+    height: calc(100vh - 40px);
+  }
+  
+  .map-container {
+    order: 1;
+    flex: 1;
+    height: 100%;
+    min-height: 100%;
+    width: 65%;
+  }
+  
+  .side-panel {
+    order: 2;
+    width: 35%;
+    height: 100%;
+    max-height: 100%;
+    min-width: 250px;
+  }
+  
+  .map-controls {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  
+  .map-controls button {
+    font-size: 0.65rem;
+    padding: var(--spacing-xs);
+    min-height: 30px;
+  }
+}
+
+/* Pantallas muy altas (teléfonos plegables) */
+@media screen and (min-height: 800px) and (max-width: 480px) {
+  .map-container {
+    min-height: 65vh;
+    height: 65vh;
+  }
+  
+  .side-panel {
+    height: 35vh;
+    max-height: 35vh;
+  }
+}
+
+/* Optimizaciones para touch */
+@media (hover: none) and (pointer: coarse) {
+  .map-controls button {
+    min-height: 44px; /* Área de toque recomendada */
+    font-weight: 600;
+  }
+  
+  .interactive:hover {
+    transform: none; /* Deshabilitar hover en touch */
+  }
+  
+  .interactive:active {
+    transform: scale(0.98);
+  }
+}
+
+/* PWA / Standalone app */
+@media (display-mode: standalone) {
+  .main-container {
+    height: 100vh; /* Sin barra del navegador */
+  }
+  
+  h1 {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+}
+
+/* Ajustes para notch (iPhone X+) */
+@supports (padding: max(0px)) {
+  h1 {
+    padding-left: max(var(--spacing-md), env(safe-area-inset-left));
+    padding-right: max(var(--spacing-md), env(safe-area-inset-right));
+  }
+  
+  .map-controls {
+    padding-bottom: max(var(--spacing-sm), env(safe-area-inset-bottom));
+  }
+}
