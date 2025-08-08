@@ -1,0 +1,461 @@
+/* Componentes profesionales de la aplicación */
+
+/* Íconos SVG embebidos */
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.icon-sm { width: 0.875rem; height: 0.875rem; }
+.icon-md { width: 1.25rem; height: 1.25rem; }
+.icon-lg { width: 1.5rem; height: 1.5rem; }
+.icon-xl { width: 2rem; height: 2rem; }
+
+/* SVG Sprites embebidos */
+.icon-map::before {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z'/%3E%3C/svg%3E");
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.icon-route::before {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E");
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.icon-location::before {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z'/%3E%3C/svg%3E");
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.icon-analytics::before {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z'/%3E%3C/svg%3E");
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+/* Header profesional */
+h1 {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 0 var(--spacing-xl);
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  z-index: 1000;
+  letter-spacing: -0.025em;
+}
+
+h1::before {
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e40af'%3E%3Cpath d='M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z'/%3E%3C/svg%3E");
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-right: var(--spacing-md);
+  flex-shrink: 0;
+}
+
+/* Layout principal */
+.main-container {
+  display: flex;
+  height: calc(100vh - var(--header-height));
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* Contenedor del mapa */
+.map-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  min-height: 500px;
+  border: 1px solid var(--border-color);
+}
+
+#map {
+  flex: 1;
+  width: 100%;
+  background: var(--gray-100);
+  position: relative;
+}
+
+.map-controls {
+  background: var(--bg-primary);
+  padding: var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+/* Panel lateral profesional */
+.side-panel {
+  width: var(--side-panel-width);
+  min-width: 380px;
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideInRight 0.4s var(--transition-normal);
+  border: 1px solid var(--border-color);
+}
+
+.panel-header {
+  background: var(--gradient-primary);
+  color: var(--text-inverse);
+  padding: var(--spacing-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  pointer-events: none;
+}
+
+.panel-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.025em;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+.panel-header h2::before {
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z'/%3E%3C/svg%3E");
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.panel-content {
+  flex: 1;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Botones profesionales */
+button {
+  background: var(--gradient-primary);
+  color: var(--text-inverse);
+  border: none;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  border: 1px solid transparent;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--transition-slow);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:active {
+  transform: translateY(0);
+  transition: transform var(--transition-fast);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--text-inverse);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  background: var(--gray-300);
+  color: var(--gray-500);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-xs);
+  border-color: var(--gray-300);
+}
+
+button:disabled:hover {
+  transform: none;
+  box-shadow: var(--shadow-xs);
+}
+
+button:disabled::before {
+  display: none;
+}
+
+/* Variantes de botones */
+#btn-calcular-ruta {
+  background: var(--gradient-primary);
+  position: relative;
+}
+
+#btn-calcular-ruta::after {
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E");
+  width: 1rem;
+  height: 1rem;
+  margin-left: var(--spacing-xs);
+}
+
+#btn-centrar-ubicacion {
+  background: var(--gradient-success);
+}
+
+#btn-centrar-ubicacion::after {
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z'/%3E%3C/svg%3E");
+  width: 1rem;
+  height: 1rem;
+  margin-left: var(--spacing-xs);
+}
+
+/* Estados de carga */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  color: var(--text-muted);
+  font-weight: 500;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+}
+
+.loading-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Estados vacíos */
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  color: var(--text-muted);
+  text-align: center;
+  background: var(--bg-secondary);
+  min-height: 300px;
+}
+
+.no-results-icon {
+  width: 4rem;
+  height: 4rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E");
+  margin-bottom: var(--spacing-md);
+  opacity: 0.6;
+}
+
+.no-results-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.no-results-description {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  max-width: 300px;
+}
+
+/* Badges profesionales */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.badge-success {
+  background: rgba(5, 150, 105, 0.1);
+  color: var(--success-color);
+  border-color: rgba(5, 150, 105, 0.2);
+}
+
+.badge-warning {
+  background: rgba(234, 88, 12, 0.1);
+  color: var(--warning-color);
+  border-color: rgba(234, 88, 12, 0.2);
+}
+
+.badge-error {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--error-color);
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+.badge-info {
+  background: rgba(8, 145, 178, 0.1);
+  color: var(--info-color);
+  border-color: rgba(8, 145, 178, 0.2);
+}
+
+/* Estados de ubicación mejorados */
+.location-status {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  transition: all var(--transition-normal);
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.location-status.loading {
+  background: rgba(8, 145, 178, 0.1);
+  color: var(--info-color);
+  border-color: rgba(8, 145, 178, 0.2);
+}
+
+.location-status.success {
+  background: rgba(5, 150, 105, 0.1);
+  color: var(--success-color);
+  border-color: rgba(5, 150, 105, 0.2);
+}
+
+.location-status.error {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--error-color);
+  border-color: rgba(220, 38, 38, 0.2);
+}
+
+/* Estados de carga */
+.loading {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  color: var(--text-muted);
+  font-weight: 500;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+}
+
+.loading-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Marcador de usuario mejorado */
+.user-location-marker .user-dot {
+  width: 16px;
+  height: 16px;
+  background: var(--primary-color);
+  border: 3px solid var(--text-inverse);
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Modo oscuro para componentes */
+@media (prefers-color-scheme: dark) {
+  .loading-spinner {
+    border-color: var(--gray-700);
+    border-top-color: var(--primary-light);
+  }
+  
+  .no-results-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23475569'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E");
+  }
+}

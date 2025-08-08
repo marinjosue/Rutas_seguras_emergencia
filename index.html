@@ -4,13 +4,19 @@
   <meta charset="UTF-8" />
   <title>Rutas de Evacuación - Algoritmo GWO</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./css/style.css" />
+  
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/components.css" />
+  <link rel="stylesheet" href="./css/table-responsive.css" />
+  <link rel="stylesheet" href="css/chatbot/chatbot.css">
+  <link rel="stylesheet" href="css/chatbot/chatbot-responsive.css">
+  
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Rutas de Evacuación - Algoritmo GWO</h1>
+  <h1>Rutas de Evacuación Volcán Cotopaxi</h1>
 
   <div class="main-container">
     <!-- Contenedor del mapa -->
@@ -22,8 +28,12 @@
         <button id="btn-calcular-ruta" disabled>
           CALCULAR RUTA
         </button>
-        <button id="btn-centrar-ubicacion" style="margin-left:8px;">
+        <button id="btn-centrar-ubicacion">
           CENTRAR EN MI UBICACIÓN
+        </button>
+        <button onclick="window.open('chatbot-fullscreen.html', '_blank')" class="btn-chatbot-fullscreen">
+          <i class="fas fa-robot"></i>
+          CHATBOT EDUCATIVO
         </button>
       </div>
     </div>
@@ -31,36 +41,83 @@
     <!-- Panel lateral derecho -->
     <div class="side-panel">
       <div class="panel-header">
-        <h2>Rutas Evaluadas (GWO)</h2>
+        <h2>Rutas Evaluadas</h2>
       </div>
       
       <div class="panel-content">
-        <div class="table-container">
-          <table id="tabla-resultados">
-            <thead>
-              <tr>
-                <th>Zona</th>
-                <th>Dist. (m)</th>
-                <th>Dur. (s)</th>
-                <th>Riesgo</th>
-                <th>Giros</th>
-                <th>Costo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="6" class="no-results">
-                  Haz clic en "CALCULAR RUTA" para ver los resultados
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="table-wrapper">
+          <div class="table-container">
+            <table id="tabla-resultados">
+              <thead>
+                <tr>
+                  <th>Zona</th>
+                  <th>Distancia</th>
+                  <th>Tiempo</th>
+                  <th>Riesgo</th>
+                  <th>Giros</th>
+                  <th>Costo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="empty-state">
+                  <td colspan="6">
+                    <div class="empty-content">
+                      <div class="empty-icon">📍</div>
+                      <div class="empty-title">Sin rutas calculadas</div>
+                      <div class="empty-description">Haz clic en "CALCULAR RUTA" para ver los resultados</div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Scripts principales primero -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script type="module" src="./js/main.js"></script>
+  
+  <script src="js/chatbot/gemini-api.js"></script>
+  <script src="js/chatbot/nlpUtils.js"></script>
+  <script src="js/chatbot/corpusNLP.js"></script>
+  <script src="js/chatbot/responseManager.js"></script>
+  <script src="js/chatbot/chatbot.js"></script>
+
+  <!-- CSS para el botón del chatbot -->
+  <style>
+    .btn-chatbot-fullscreen {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2);
+    }
+
+    .btn-chatbot-fullscreen:hover {
+      background: linear-gradient(135deg, #047857, #059669);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3);
+    }
+
+    .btn-chatbot-fullscreen i {
+      font-size: 16px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+  </style>
 </body>
 </html>

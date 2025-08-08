@@ -1,5 +1,5 @@
 export async function cargarZonasSeguras(map) {
-   const res = await fetch('../data/zonas_seguras.geojson');
+   const res = await fetch('./data/zonas_seguras.geojson');
     const data = await res.json();
 
     L.geoJSON(data, {
@@ -30,7 +30,7 @@ export async function cargarZonasSeguras(map) {
 }
 
 export async function cargarZonasPeligro(map) {
-  const response = await fetch('../data/zonas_peligro.geojson');
+  const response = await fetch('./data/zonas_peligro.geojson');
 const data = await response.json();
     
     L.geoJSON(data, {
@@ -78,31 +78,24 @@ export function actualizarTabla(resultados) {
     // Formatear duración en formato legible
     const duracionMin = Math.floor(r.duracion / 60);
     const duracionSeg = Math.floor(r.duracion % 60);
-    const duracionFormateada = duracionMin > 0 ? 
-      `${duracionMin}m ${duracionSeg}s` : 
-      `${duracionSeg}s`;
-    
-    // Crear badges para valores importantes
-    const badgeRiesgo = r.riesgo > 0.7 ? 'badge-danger' : 
-                        r.riesgo > 0.3 ? 'badge-warning' : 'badge-success';
-    
-    const badgeCosto = index === 0 ? 'badge-success' : 
-                       index === 1 ? 'badge-warning' : '';
+    const duracionTexto = `${duracionMin}:${duracionSeg.toString().padStart(2, '0')}`;
     
     row.innerHTML = `
-      <td><strong>${r.nombre}</strong></td>
-      <td>${r.distancia.toFixed(0)}</td>
-      <td>${duracionFormateada}</td>
-      <td class="${claseRiesgo}">
-        <span class="badge ${badgeRiesgo}">${r.riesgo.toFixed(2)}</span>
+      <td class="zona-nombre">${r.nombre}</td>
+      <td class="distancia">${(r.distancia / 1000).toFixed(2)} km</td>
+      <td class="duracion">${duracionTexto}</td>
+      <td class="riesgo ${claseRiesgo}">
+        <span class="riesgo-badge">${(r.riesgo * 100).toFixed(0)}%</span>
       </td>
-      <td>${r.giros}</td>
-      <td>
-        <span class="badge ${badgeCosto}">
-          <strong>${r.costo.toFixed(3)}</strong>
-        </span>
+      <td class="giros">${r.giros}</td>
+      <td class="costo">
+        <span class="costo-badge ${index === 0 ? 'mejor-ruta' : ''}">${r.costo.toFixed(3)}</span>
       </td>
     `;
+    
+    if (index === 0) {
+      row.classList.add("mejor-opcion");
+    }
     
     tbody.appendChild(row);
   });

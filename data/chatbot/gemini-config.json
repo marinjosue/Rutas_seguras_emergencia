@@ -1,0 +1,76 @@
+{
+  "apiKey": "AIzaSyABLag1t-Dlm2HATVmdeH5pqRgebFTZhUY",
+  "apiUrl": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+  "model": "gemini-2.0-flash",
+  "maxTokens": 1000,
+  "temperature": 0.4,
+  "systemPrompt": "Eres un EDUCADOR ESPECIALIZADO en prevención de riesgos volcánicos y preparación para emergencias de la Universidad ESPE. Tu misión es EDUCAR PREVENTIVAMENTE sobre: 1) Preparación antes de emergencias, 2) Conocimiento del volcán Cotopaxi para prevención, 3) Educación sobre riesgos volcánicos, 4) Planes familiares de emergencia, 5) Kits de supervivencia, 6) Señales de alerta temprana, 7) Comportamiento preventivo, 8) Educación comunitaria. SIEMPRE enfoca las respuestas hacia la PREVENCIÓN y PREPARACIÓN. Si alguien pregunta sobre volcanes/naturaleza, explica cómo ese conocimiento ayuda en la preparación preventiva. Usa un tono educativo, motivador y enfocado en salvar vidas a través de la preparación.",
+  "context": {
+    "university": "Universidad de las Fuerzas Armadas ESPE",
+    "volcano": "Volcán Cotopaxi",
+    "focus": "Educación Preventiva y Preparación para Emergencias",
+    "mission": "Salvar vidas a través de la educación preventiva",
+    "preventiveAreas": [
+      "Preparación familiar",
+      "Kits de emergencia",
+      "Planes de evacuación",
+      "Conocimiento de riesgos",
+      "Señales de alerta",
+      "Educación comunitaria",
+      "Primeros auxilios",
+      "Comunicación de emergencia"
+    ],
+    "volcanicRisks": [
+      "Lahares por deshielo",
+      "Caída de ceniza volcánica",
+      "Flujos piroclásticos",
+      "Gases volcánicos tóxicos",
+      "Proyectiles balísticos",
+      "Colapso de infraestructura"
+    ]
+  },
+  "allowedTopics": [
+    "prevencion", "preparacion", "educacion", "riesgo", "peligro", "emergencia",
+    "plan familiar", "kit emergencia", "mochila", "suministros", "agua", "comida",
+    "señales", "alerta", "evacuacion", "ruta", "zona segura", "punto encuentro",
+    "primeros auxilios", "salud", "respiratorio", "mascarilla", "proteccion",
+    "comunicacion", "radio", "telefono", "contactos", "familia", "niños",
+    "volcan", "cotopaxi", "lahar", "ceniza", "gases", "erupcion", "actividad",
+    "monitoreo", "igepn", "sismico", "camara", "sensor", "vigilancia",
+    "comunidad", "vecinos", "universidad", "espe", "campus", "estudiantes",
+    "animales domesticos", "mascotas", "ganado", "agricultura", "cultivos",
+    "casa", "hogar", "edificio", "infraestructura", "construccion", "refuerzo",
+    "vehiculo", "transporte", "combustible", "rutas alternativas", "trafico",
+    "psicologia", "estres", "ansiedad", "calma", "liderazgo", "organizacion",
+    "entrenamiento", "simulacro", "practica", "capacitacion", "curso", "taller"
+  ],
+  "preventiveTopics": [
+    "como prepararse", "que hacer antes", "plan de emergencia", "kit de supervivencia",
+    "mochila de emergencia", "lista de suministros", "agua potable", "comida no perecedera",
+    "documentos importantes", "medicamentos", "linterna", "radio", "pilas", "celular",
+    "punto de reunion", "contactos de emergencia", "rutas de evacuacion", "vehiculo preparado",
+    "señales de peligro", "comportamiento de animales", "cambios en el volcan",
+    "simulacros", "entrenamiento familiar", "educacion de niños", "personas mayores",
+    "discapacitados", "mascotas", "planes especiales", "comunicacion familiar",
+    "primeros auxilios basicos", "botiquin", "tecnicas de respiracion", "proteccion ceniza",
+    "como ayudar vecinos", "organizacion comunitaria", "grupos de apoyo", "liderazgo",
+    "identificar riesgos", "evaluar casa", "reforzar estructura", "asegurar objetos",
+    "conocer el volcan", "entender lahares", "reconocer peligros", "mapas de riesgo"
+  ],
+  "quickSuggestions": [
+    "¿Cómo preparar un kit de emergencia volcánica?",
+    "¿Qué señales indican que el volcán se activa?",
+    "¿Cómo hacer un plan familiar de evacuación?",
+    "¿Qué documentos debo tener listos siempre?",
+    "¿Cómo protegerse de la ceniza volcánica?",
+    "¿Cómo preparar a los niños para emergencias?",
+    "¿Qué hacer con las mascotas en evacuación?",
+    "¿Cómo organizar simulacros familiares?"
+  ],
+  "contextValidation": {
+    "strictMode": false,
+    "maxOffTopicAttempts": 4,
+    "preventiveEducationFocus": true,
+    "intelligentValidation": true
+  }
+}

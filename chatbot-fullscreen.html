@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Inteligente ESPE - Prevención Volcánica</title>
+    
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/chatbot/chatbot-fullscreen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="theme-light" data-font-size="medium">
+    <div class="chatbot-container">
+        <!-- Header -->
+        <header class="chatbot-header">
+            <div class="header-left">
+                <button class="back-button" onclick="window.location.href='index.html'">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="chatbot-info">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="chatbot-details">
+                        <h1>Asistente ESPE</h1>
+                        <p class="chatbot-status">
+                            <span class="status-indicator online"></span>
+                            🧠 Corpus + 🤖 IA
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="header-button" onclick="clearChat()" title="Limpiar chat">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <button class="header-button" onclick="toggleSettings()" title="Configuración">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="header-button" onclick="toggleSidebar()" title="Temas">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="chatbot-main">
+            <!-- Sidebar -->
+            <aside class="chatbot-sidebar" id="chatbot-sidebar">
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-lightbulb"></i> Temas Rápidos</h3>
+                </div>
+                
+                <div class="sidebar-content">
+                    <div class="topics-list">
+                        <div class="topic-category">
+                            <h4><i class="fas fa-first-aid"></i> Preparación</h4>
+                            <button class="topic-btn" onclick="sendQuickMessage('kit_emergencia')">
+                                📦 Kit de Emergencia
+                            </button>
+                            <button class="topic-btn" onclick="sendQuickMessage('plan_familiar')">
+                                👨‍👩‍👧‍👦 Plan Familiar
+                            </button>
+                            <button class="topic-btn" onclick="sendQuickMessage('documentos_importantes')">
+                                📄 Documentos
+                            </button>
+                        </div>
+
+                        <div class="topic-category">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Alertas</h4>
+                            <button class="topic-btn" onclick="sendQuickMessage('senales_volcanicas')">
+                                🚨 Señales Volcánicas
+                            </button>
+                            <button class="topic-btn" onclick="sendQuickMessage('alertas_igepn')">
+                                📊 Alertas IGEPN
+                            </button>
+                        </div>
+
+                        <div class="topic-category">
+                            <h4><i class="fas fa-running"></i> Emergencia</h4>
+                            <button class="topic-btn" onclick="sendQuickMessage('durante_erupcion')">
+                                🌋 Durante Erupción
+                            </button>
+                            <button class="topic-btn" onclick="sendQuickMessage('rutas_evacuacion')">
+                                🗺️ Rutas Evacuación
+                            </button>
+                        </div>
+
+                        <div class="topic-category">
+                            <h4><i class="fas fa-phone"></i> Emergencias</h4>
+                            <button class="topic-btn" onclick="sendQuickMessage('numeros_emergencia')">
+                                📞 Teléfonos
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Chat Area -->
+            <div class="chat-area">
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Welcome Message -->
+                    <div class="welcome-message">
+                        <div class="welcome-avatar">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="welcome-content">
+                            <h2>¡Hola! Soy tu Asistente ESPE</h2>
+                            <p>Especialista en prevención volcánica del Cotopaxi</p>
+                            
+                            <div class="ai-features">
+                                <div class="ai-feature">
+                                    <i class="fas fa-robot"></i>
+                                    <span>IA Gemini</span>
+                                </div>
+                                <div class="ai-feature">
+                                    <i class="fas fa-brain"></i>
+                                    <span>Corpus NLP</span>
+                                </div>
+                            </div>
+
+                            <div class="example-queries">
+                                <h4>Ejemplos de consultas inteligentes:</h4>
+                                <button class="example-btn" onclick="sendQuickMessage('conocoto es una zona de peligro?')">
+                                    "¿Conocoto es una zona segura?"
+                                </button>
+                                <button class="example-btn" onclick="sendQuickMessage('necesito evacuar familia de 4 personas desde Sangolquí')">
+                                    "Plan evacuación familia Sangolquí"
+                                </button>
+                                <button class="example-btn" onclick="sendQuickMessage('explícame los riesgos si trabajo en la ESPE')">
+                                    "¿Riesgos trabajando en ESPE?"
+                                </button>
+                            </div>
+                            
+                            <p class="welcome-prompt">💡 Pregúntame cualquier cosa sobre el Volcán Cotopaxi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="typing-indicator" id="typing-indicator" style="display: none;">
+                    <div class="typing-avatar">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="typing-animation">
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <p> Analizando...</p>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="chat-input-area">
+                    <div class="input-container">
+                        <div class="input-wrapper">
+                            <textarea 
+                                id="chat-input" 
+                                placeholder="Pregúntame sobre prevención volcánica del Cotopaxi..."
+                                rows="1"
+                                maxlength="1000"
+                            ></textarea>
+                            <div class="input-actions">
+                                <span class="char-counter">0/1000</span>
+                                <button class="voice-button" id="voice-button" title="Próximamente">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="send-button" id="send-button" disabled>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Quick Suggestions -->
+                    <div class="quick-suggestions" id="quick-suggestions">
+                        <button class="suggestion-chip" onclick="sendQuickMessage('¿Qué hacer si llueve ceniza?')">
+                            🌋 Lluvia ceniza
+                        </button>
+                        <button class="suggestion-chip" onclick="sendQuickMessage('mi casa está en zona de riesgo')">
+                            🏠 Zona riesgo
+                        </button>
+                        <button class="suggestion-chip" onclick="sendQuickMessage('síntomas gases volcánicos')">
+                            💨 Gases tóxicos
+                        </button>
+                        <button class="suggestion-chip" onclick="sendQuickMessage('evacuación con mascotas')">
+                            🐕 Con mascotas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div class="settings-panel" id="settings-panel">
+            <div class="settings-header">
+                <h3><i class="fas fa-cog"></i> Configuración</h3>
+                <button class="close-settings" onclick="toggleSettings()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="settings-content">
+                <div class="setting-group">
+                    <label><i class="fas fa-palette"></i> Tema</label>
+                    <select id="theme-selector" onchange="changeTheme()">
+                        <option value="light">Claro</option>
+                        <option value="dark">Oscuro</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <label><i class="fas fa-font"></i> Tamaño fuente</label>
+                    <select id="font-size-selector" onchange="changeFontSize()">
+                        <option value="small">Pequeña</option>
+                        <option value="medium">Mediana</option>
+                        <option value="large">Grande</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="sound-enabled" onchange="toggleSound()">
+                        <i class="fas fa-volume-up"></i> Sonidos
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="auto-scroll" onchange="toggleAutoScroll()">
+                        <i class="fas fa-arrow-down"></i> Auto-scroll
+                    </label>
+                </div>
+
+                <div class="settings-actions">
+                    <button class="settings-btn" onclick="window.chatbotApp.exportChat()">
+                        <i class="fas fa-download"></i> Exportar Chat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts - Orden correcto -->
+    <script src="js/chatbot/gemini-api.js"></script>
+    <script src="js/chatbot/nlpUtils.js"></script>
+    <script src="js/chatbot/corpusNLP.js"></script>
+    <script src="js/chatbot/responseManager.js"></script>
+    <script src="js/chatbot/chatbot-fullscreen.js"></script>
+</body>
+</html>

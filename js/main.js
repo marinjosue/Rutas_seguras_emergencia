@@ -21,12 +21,104 @@ let ultimaUbicacion = null;
 let rutaSeleccionadaLine = null;
 let filaSeleccionada = null;
 let rutaActualCoords = null;
+let datosListos = false;
+
+// Exponer variables globales para el chatbot
+window.ubicacionActual = null;
+window.rutaActual = null;
+window.zonasSeguras = null;
+
+// Función para mostrar estado de carga
+function mostrarEstadoCarga(mensaje) {
+  console.log("Estado:", mensaje);
+  
+  // Crear o actualizar indicador visual
+  let indicator = document.getElementById('loading-indicator');
+  if (!indicator) {
+    indicator = document.createElement('div');
+    indicator.id = 'loading-indicator';
+    indicator.style.cssText = `
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(37, 99, 235, 0.9);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 1001;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    `;
+    document.body.appendChild(indicator);
+  }
+  indicator.textContent = mensaje;
+  
+  // Auto-ocultar después de 3 segundos si es mensaje de éxito
+  if (mensaje.includes('✓') || mensaje.includes('listo')) {
+    setTimeout(() => {
+      if (indicator) indicator.remove();
+    }, 3000);
+  }
+}
 
 function setUserMarker(coords, texto = "Tu ubicación") {
+  mostrarEstadoCarga(`📍 Ubicación establecida`);
+  
   if (userMarker) map.removeLayer(userMarker);
-  userMarker = L.marker(coords).addTo(map).bindPopup(texto).openPopup();
+  
+  // Crear marcador personalizado más visible
+  const customIcon = L.divIcon({
+    className: 'custom-user-marker',
+    html: `
+      <div style="
+        width: 20px;
+        height: 20px;
+        background: #2563eb;
+        border: 3px solid white;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(37,99,235,0.4);
+        position: relative;
+      ">
+        <div style="
+          width: 40px;
+          height: 40px;
+          border: 2px solid #2563eb;
+          border-radius: 50%;
+          position: absolute;
+          top: -13px;
+          left: -13px;
+          opacity: 0.3;
+          animation: pulse 2s infinite;
+        "></div>
+      </div>
+    `,
+    iconSize: [20, 20],
+    iconAnchor: [10, 10]
+  });
+  
+  userMarker = L.marker(coords, { icon: customIcon })
+    .addTo(map)
+    .bindPopup(texto)
+    .openPopup();
+    
   ultimaUbicacion = coords;
-  document.getElementById("btn-calcular-ruta").disabled = false;
+  window.ubicacionActual = coords;
+  
+  // Centrar mapa en la ubicación
+  map.setView(coords, 18);
+  
+  // Habilitar botón si los datos están listos
+  verificarEstadoCompleto();
+  
+  console.log("✓ Ubicación establecida:", coords);
+}
+
+function verificarEstadoCompleto() {
+  if (ultimaUbicacion && datosListos) {
+    document.getElementById("btn-calcular-ruta").disabled = false;
+    mostrarEstadoCarga(`✓ Sistema listo para calcular rutas`);
+    console.log("✓ Sistema completamente listo");
+  }
 }
 
 // Cambia: permite color personalizado
@@ -35,6 +127,9 @@ function setRouteLine(coords, color = 'blue') {
   routeLine = L.polyline(coords, { color, weight: 6 }).addTo(map);
   map.fitBounds(routeLine.getBounds());
   rutaActualCoords = coords;
+  
+  // Actualizar variable global para chatbot
+  window.rutaActual = { coords, color };
 }
 
 // Nueva función para ruta seleccionada (color rojo)
@@ -43,90 +138,232 @@ function setRutaSeleccionadaLine(coords) {
   rutaSeleccionadaLine = L.polyline(coords, { color: 'red', weight: 6 }).addTo(map);
   map.fitBounds(rutaSeleccionadaLine.getBounds());
   rutaActualCoords = coords;
+  
+  // Actualizar variable global para chatbot
+  window.rutaActual = { coords, color: 'red' };
 }
 
-Promise.all([
-  cargarZonasSeguras(map),
-  cargarZonasPeligro(map)
-]).then(([_, peligro]) => {
-  // Fix: Load zonasGeoJSON separately since cargarZonasSeguras doesn't return data
-  fetch('../data/zonas_seguras.geojson')
-    .then(res => res.json())
-    .then(data => {
-      zonasGeoJSON = data;
-    });
+// GEOLOCALIZACIÓN INMEDIATA Y AGRESIVA
+function iniciarGelocalizacion() {
+  mostrarEstadoCarga(`🔍 Detectando tu ubicación...`);
   
-  peligroGeoJSON = peligro;
-
-  // Cargar zona_ESPE.geojson (contorno azul)
-  fetch('../data/zona_ESPE.geojson')
-    .then(res => res.json())
-    .then(data => {
-      L.geoJSON(data, {
-        style: {
-          color: '#1E90FF',
-          fillColor: '#E0F0FF',
-          weight: 2,
-          fillOpacity: 0.3
-        }
-      }).addTo(map);
-    });
-
-  // Cargar rutas_ESPE.geojson (líneas verdes)
-  fetch('../data/rutas_ESPE.geojson')
-    .then(res => res.json())
-    .then(data => {
-      L.geoJSON(data, {
-        style: {
-          color: '#1FAA59',
-          weight: 2
-        }
-      }).addTo(map);
-    });
-
-  // Geolocalización automática
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(pos => {
-      const coords = {
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude
-      };
-      setUserMarker(coords, "Ubicación actual");
-    });
+  if (!navigator.geolocation) {
+    console.warn("Geolocalización no disponible");
+    mostrarEstadoCarga(`⚠️ Geolocalización no disponible`);
+    usarUbicacionPorDefecto();
+    return;
   }
-});
+
+  const opciones = {
+    enableHighAccuracy: true,
+    timeout: 8000,
+    maximumAge: 0 // No usar caché
+  };
+
+  // Intentar geolocalización de alta precisión
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const coords = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      
+      console.log("✓ Geolocalización exitosa:", coords);
+      console.log("Precisión:", position.coords.accuracy, "metros");
+      
+      setUserMarker(coords, `📍 Tu ubicación actual (±${Math.round(position.coords.accuracy)}m)`);
+    },
+    (error) => {
+      console.error("Error de geolocalización:", error);
+      
+      let mensaje = "Error desconocido";
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          mensaje = "Permisos de ubicación denegados";
+          break;
+        case error.POSITION_UNAVAILABLE:
+          mensaje = "Ubicación no disponible";
+          break;
+        case error.TIMEOUT:
+          mensaje = "Tiempo de espera agotado";
+          break;
+      }
+      
+      mostrarEstadoCarga(`⚠️ ${mensaje}`);
+      
+      // Intentar con opciones menos estrictas
+      intentarGeolacalizacionAlternativa();
+    },
+    opciones
+  );
+}
+
+function intentarGeolacalizacionAlternativa() {
+  console.log("Intentando geolocalización alternativa...");
+  
+  const opcionesAlternativas = {
+    enableHighAccuracy: false,
+    timeout: 15000,
+    maximumAge: 60000 // Aceptar caché de 1 minuto
+  };
+  
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const coords = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      
+      console.log("✓ Geolocalización alternativa exitosa:", coords);
+      setUserMarker(coords, `📍 Tu ubicación (aproximada)`);
+    },
+    (error) => {
+      console.error("Error en geolocalización alternativa:", error);
+      mostrarEstadoCarga(`❌ No se pudo obtener ubicación`);
+      usarUbicacionPorDefecto();
+    },
+    opcionesAlternativas
+  );
+}
+
+function usarUbicacionPorDefecto() {
+  console.log("Usando ubicación por defecto (ESPE)");
+  const coordsESPE = { lat: -0.3132, lng: -78.4408 };
+  setUserMarker(coordsESPE, "📍 Campus ESPE (ubicación por defecto)");
+}
+
+// CARGAR DATOS Y LUEGO GEOLOCALIZACIÓN
+async function inicializarAplicacion() {
+  console.log("🚀 Inicializando aplicación...");
+  mostrarEstadoCarga(`🔄 Cargando datos del mapa...`);
+  
+  try {
+    // Cargar datos en paralelo
+    const [zonasData, peligroData] = await Promise.all([
+      cargarZonasSeguras(map),
+      cargarZonasPeligro(map)
+    ]);
+    
+    // Cargar GeoJSON de zonas seguras para el algoritmo
+    const response = await fetch('./data/zonas_seguras.geojson');
+    zonasGeoJSON = await response.json();
+    peligroGeoJSON = peligroData;
+    window.zonasSeguras = zonasGeoJSON.features;
+    
+    console.log("✓ Zonas seguras cargadas:", zonasGeoJSON.features.length);
+    mostrarEstadoCarga(`✓ Datos cargados`);
+    
+    // Cargar capas adicionales
+    await cargarCapasAdicionales();
+    
+    datosListos = true;
+    console.log("✓ Todos los datos cargados");
+    
+    // AHORA iniciar geolocalización
+    iniciarGelocalizacion();
+    
+  } catch (error) {
+    console.error("Error cargando datos:", error);
+    mostrarEstadoCarga(`❌ Error cargando datos`);
+    
+    // Aún así intentar geolocalización
+    datosListos = true;
+    iniciarGelocalizacion();
+  }
+}
+
+async function cargarCapasAdicionales() {
+  try {
+    // Cargar zona_ESPE.geojson (contorno azul)
+    const espeResponse = await fetch('./data/zona_ESPE.geojson');
+    const espeData = await espeResponse.json();
+    L.geoJSON(espeData, {
+      style: {
+        color: '#1E90FF',
+        fillColor: '#E0F0FF',
+        weight: 2,
+        fillOpacity: 0.3
+      }
+    }).addTo(map);
+
+    // Cargar rutas_ESPE.geojson (líneas verdes)
+    const rutasResponse = await fetch('./data/rutas_ESPE.geojson');
+    const rutasData = await rutasResponse.json();
+    L.geoJSON(rutasData, {
+      style: {
+        color: '#1FAA59',
+        weight: 2
+      }
+    }).addTo(map);
+    
+    console.log("✓ Capas adicionales cargadas");
+  } catch (error) {
+    console.warn("Advertencia cargando capas adicionales:", error);
+  }
+}
 
 // Evento: clic manual en el mapa
 map.on('click', (e) => {
-  setUserMarker(e.latlng);
+  console.log("👆 Clic manual en mapa:", e.latlng);
+  setUserMarker(e.latlng, "📍 Ubicación seleccionada manualmente");
 });
 
 // Botón CALCULAR RUTA
 document.getElementById("btn-calcular-ruta").addEventListener("click", async () => {
-  if (!ultimaUbicacion) return alert("Selecciona una ubicación primero.");
-
-  const resultados = await evaluarRutasConGWO(ultimaUbicacion, zonasGeoJSON, peligroGeoJSON, API_KEY);
-  if (!resultados || resultados.length === 0) {
-    alert("No se encontraron rutas válidas.");
+  console.log("🧮 Iniciando cálculo de ruta...");
+  mostrarEstadoCarga(`🧮 Calculando rutas...`);
+  
+  if (!ultimaUbicacion) {
+    alert("❌ Selecciona una ubicación primero.");
     return;
   }
 
-  reproducirAlertaVoz();
-
-  const mejor = resultados[0];
-  const ruta = await obtenerRutaDesdeORS(ultimaUbicacion, mejor.coords);
-  if (!ruta) return;
-
-  const puntos = ruta.geometry.coordinates.map(c => [c[1], c[0]]);
-  setRouteLine(puntos, 'blue');
-  if (rutaSeleccionadaLine) {
-    map.removeLayer(rutaSeleccionadaLine);
-    rutaSeleccionadaLine = null;
+  if (!zonasGeoJSON || !peligroGeoJSON) {
+    alert("❌ Los datos aún se están cargando. Espera un momento.");
+    return;
   }
-  actualizarTabla(resultados);
 
-  // Permitir seleccionar rutas desde la tabla
-  agregarEventoSeleccionTabla(resultados);
+  try {
+    const resultados = await evaluarRutasConGWO(ultimaUbicacion, zonasGeoJSON, peligroGeoJSON, API_KEY);
+    if (!resultados || resultados.length === 0) {
+      alert("❌ No se encontraron rutas válidas.");
+      mostrarEstadoCarga(`❌ Sin rutas válidas`);
+      return;
+    }
+
+    console.log("✓ Rutas calculadas:", resultados.length);
+    mostrarEstadoCarga(`✓ ${resultados.length} rutas encontradas`);
+
+    reproducirAlertaVoz();
+
+    const mejor = resultados[0];
+    const ruta = await obtenerRutaDesdeORS(ultimaUbicacion, mejor.coords);
+    if (!ruta) return;
+
+    const puntos = ruta.geometry.coordinates.map(c => [c[1], c[0]]);
+    setRouteLine(puntos, 'blue');
+    if (rutaSeleccionadaLine) {
+      map.removeLayer(rutaSeleccionadaLine);
+      rutaSeleccionadaLine = null;
+    }
+    actualizarTabla(resultados);
+
+    // Permitir seleccionar rutas desde la tabla
+    agregarEventoSeleccionTabla(resultados);
+    
+    // Notificar al chatbot si está disponible
+    if (window.chatbot) {
+      window.chatbot.onRouteCalculated({
+        distance: (mejor.distancia / 1000).toFixed(2),
+        duration: Math.ceil(mejor.duracion / 60)
+      });
+    }
+    
+  } catch (error) {
+    console.error("❌ Error calculando ruta:", error);
+    mostrarEstadoCarga(`❌ Error en cálculo`);
+    alert("❌ Error al calcular la ruta. Inténtalo de nuevo.");
+  }
 });
 
 function reproducirAlertaVoz() {
@@ -187,8 +424,11 @@ function agregarEventoSeleccionTabla(resultados) {
 // Botón para centrar en la ubicación del usuario
 document.getElementById("btn-centrar-ubicacion").addEventListener("click", () => {
   if (ultimaUbicacion) {
-    map.setView(ultimaUbicacion, 16);
+    map.setView(ultimaUbicacion, 18);
     if (userMarker) userMarker.openPopup();
+  } else {
+    // Forzar nueva geolocalización
+    iniciarGelocalizacion();
   }
 });
 
@@ -204,6 +444,14 @@ if (navigator.geolocation) {
       const indicacion = obtenerIndicacion(userPos, rutaActualCoords);
       if (indicacion) reproducirIndicacionVoz(indicacion);
     }
+  }, 
+  (error) => {
+    console.warn("Error en watchPosition:", error);
+  }, 
+  {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 30000
   });
 }
 
@@ -250,4 +498,31 @@ function reproducirIndicacionVoz(texto) {
   const utter = new window.SpeechSynthesisUtterance(texto);
   utter.lang = "es-ES";
   window.speechSynthesis.speak(utter);
+}
+
+// Agregar estilos para el marcador personalizado
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  .custom-user-marker {
+    animation: pulse 2s infinite;
+  }
+  
+  #loading-indicator {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+  }
+`;
+document.head.appendChild(style);
+
+// INICIAR TODO CUANDO EL DOM ESTÉ LISTO
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', inicializarAplicacion);
+} else {
+  inicializarAplicacion();
 }

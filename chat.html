@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Asistente ESPE</title>
+    
+    <!-- Estilos base -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    
+    <!-- Estilos del chatbot -->
+    <link rel="stylesheet" href="css/chatbot/chatbot.css">
+    <link rel="stylesheet" href="css/chatbot/chatbot-responsive.css">
+    
+<!-- Reemplazar el <style> existente en chat.html -->
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #2563eb 0%, #10b981 50%, #8b5cf6 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .chat-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .chat-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            font-weight: 700;
+        }
+        
+        .chat-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .chat-showcase {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 900px;
+            margin: 50px auto 0;
+            padding: 0 20px;
+        }
+        
+        .feature-card {
+            background: rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 25px;
+            color: white;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.18);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .feature-card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            opacity: 0.92;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        
+        .feature-card svg {
+            background: rgba(255,255,255,0.2);
+            padding: 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← Volver al Mapa</a>
+    
+    <div class="chat-header">
+        <h1>🤖 Asistente Virtual ESPE</h1>
+        <p>Tu compañero inteligente para rutas de evacuación seguras</p>
+    </div>
+    
+    <div class="chat-showcase">
+        <!-- El chatbot se renderizará aquí automáticamente -->
+        <div style="padding: 40px; text-align: center; color: #666;">
+            <h3>💬 Chatbot Inicializando...</h3>
+            <p>El asistente virtual se está cargando. En unos momentos podrás chatear directamente aquí.</p>
+        </div>
+    </div>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"/>
+                </svg>
+                Rutas Inteligentes
+            </h3>
+            <p>Pregunta sobre las mejores rutas de evacuación optimizadas con algoritmo GWO para tu ubicación específica.</p>
+        </div>
+        
+        <div class="feature-card">
+            <h3>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,2A3,3 0 0,1 15,5V11A3,3 0 0,1 12,14A3,3 0 0,1 9,11V5A3,3 0 0,1 12,2M19,11C19,14.53 16.39,17.44 13,17.93V21H11V17.93C7.61,17.44 5,14.53 5,11H7A5,5 0 0,0 12,16A5,5 0 0,0 17,11H19Z"/>
+                </svg>
+                Asistencia por Voz
+            </h3>
+            <p>Recibe indicaciones claras y precisas sobre procedimientos de evacuación y medidas de seguridad.</p>
+        </div>
+        
+        <div class="feature-card">
+            <h3>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13,3A9,9 0 0,0 4,12H1L4.96,16.03L9,12H6A7,7 0 0,1 13,5A7,7 0 0,1 20,12A7,7 0 0,1 13,19C11.07,19 9.32,18.21 8.06,16.94L6.64,18.36C8.27,20 10.5,21 13,21A9,9 0 0,0 22,12A9,9 0 0,0 13,3Z"/>
+                </svg>
+                Tiempo Real
+            </h3>
+            <p>Información actualizada sobre el estado de las rutas y zonas de seguridad en tiempo real.</p>
+        </div>
+        
+        <div class="feature-card">
+            <h3>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22S19,14.25 19,9A7,7 0 0,0 12,2Z"/>
+                </svg>
+                Zonas Seguras
+            </h3>
+            <p>Consulta información detallada sobre las 9 zonas de evacuación disponibles en el campus ESPE.</p>
+        </div>
+    </div>
+    
+    <!-- Scripts del chatbot -->
+    <script src="js/chatbot/gemini-api.js"></script>
+    <script src="js/chatbot/chatbot.js"></script>
+    
+    <script>
+        // Personalizar el chatbot para la página de demostración
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Esperar a que el chatbot se inicialice
+            setTimeout(() => {
+                if (window.chatbot) {
+                    // Abrir automáticamente el chat en esta página
+                    chatbot.toggleChat();
+                    
+                    // Reemplazar el contenido de showcase con el chatbot
+                    const showcase = document.querySelector('.chat-showcase');
+                    if (showcase && chatbot.container) {
+                        showcase.innerHTML = '';
+                        chatbot.container.style.position = 'relative';
+                        chatbot.container.style.bottom = 'auto';
+                        chatbot.container.style.right = 'auto';
+                        chatbot.container.style.width = '100%';
+                        chatbot.container.style.height = '500px';
+                        chatbot.container.style.display = 'flex';
+                        showcase.appendChild(chatbot.container);
+                        
+                        // Ocultar el botón flotante en esta página
+                        if (chatbot.floatBtn) {
+                            chatbot.floatBtn.style.display = 'none';
+                        }
+                    }
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

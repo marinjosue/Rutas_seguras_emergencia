@@ -1,0 +1,621 @@
+/* TABLA DE RESULTADOS - DISEÑO LIMPIO Y PROFESIONAL */
+
+/* Reset y contenedor principal */
+.table-wrapper {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #e5e7eb;
+}
+
+.table-container {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  position: relative;
+  background: #ffffff;
+}
+
+/* Barra de scroll personalizada */
+.table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+.table-container::-webkit-scrollbar-corner {
+  background: #f3f4f6;
+}
+
+/* Tabla base */
+#tabla-resultados {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.875rem;
+  background: #ffffff;
+  position: relative;
+  border-radius: 0;
+}
+
+/* Header fijo con colores profesionales */
+#tabla-resultados thead {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#tabla-resultados thead tr {
+  background: transparent;
+}
+
+#tabla-resultados th {
+  padding: 1rem 0.75rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  border: none;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+  user-select: none;
+  background: transparent;
+}
+
+#tabla-resultados th:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Distribución específica de columnas */
+#tabla-resultados th:nth-child(1) { width: 28%; min-width: 120px; } /* Zona */
+#tabla-resultados th:nth-child(2) { width: 16%; min-width: 80px; }  /* Distancia */
+#tabla-resultados th:nth-child(3) { width: 14%; min-width: 70px; }  /* Tiempo */
+#tabla-resultados th:nth-child(4) { width: 18%; min-width: 90px; }  /* Riesgo */
+#tabla-resultados th:nth-child(5) { width: 10%; min-width: 60px; }  /* Giros */
+#tabla-resultados th:nth-child(6) { width: 14%; min-width: 70px; }  /* Costo */
+
+/* Celdas de datos */
+#tabla-resultados td {
+  padding: 0.875rem 0.75rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.8rem;
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+  position: relative;
+  transition: all 0.2s ease;
+  word-wrap: break-word;
+  hyphens: auto;
+  color: #374151;
+}
+
+/* Filas del cuerpo */
+#tabla-resultados tbody {
+  background: #ffffff;
+}
+
+#tabla-resultados tbody tr {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  background: #ffffff;
+}
+
+#tabla-resultados tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+#tabla-resultados tbody tr:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+}
+
+#tabla-resultados tbody tr:hover td {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Primera fila - Mejor ruta (VERDE) */
+#tabla-resultados tbody tr:first-child {
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05));
+  border-left: 4px solid #22c55e;
+  font-weight: 600;
+}
+
+/* QUITAR ICONOS COMPLETAMENTE */
+#tabla-resultados tbody tr:first-child::before {
+  display: none !important;
+}
+
+#tabla-resultados tbody tr.fila-seleccionada::before {
+  display: none !important;
+}
+
+#tabla-resultados tbody tr:first-child td {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+#tabla-resultados tbody tr:first-child:hover {
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.08));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.2);
+}
+
+/* Fila seleccionada */
+#tabla-resultados tbody tr.fila-seleccionada {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.12), rgba(59, 130, 246, 0.06)) !important;
+  border-left: 4px solid #3b82f6 !important;
+  font-weight: 700 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2) !important;
+  z-index: 15 !important;
+}
+
+#tabla-resultados tbody tr.fila-seleccionada td {
+  color: #2563eb !important;
+  font-weight: 700 !important;
+}
+
+/* Badges de riesgo mejorados */
+.table-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  min-width: 50px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+/* RIESGO BAJO - VERDE */
+.table-badge-low {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #22c55e;
+}
+
+/* RIESGO MEDIO - NARANJA */
+.table-badge-medium {
+  background: #fed7aa;
+  color: #c2410c;
+  border-color: #f97316;
+}
+
+/* RIESGO ALTO - ROJO */
+.table-badge-high {
+  background: #fecaca;
+  color: #dc2626;
+  border-color: #ef4444;
+}
+
+/* Estados especiales */
+.empty-state td {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.empty-content,
+.loading-content,
+.error-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 3rem 1.5rem !important;
+  text-align: center !important;
+  min-height: 200px;
+  gap: 1rem;
+}
+
+.empty-icon,
+.loading-icon,
+.error-icon {
+  font-size: 2.5rem;
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+}
+
+.empty-title,
+.loading-title,
+.error-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin: 0;
+}
+
+.empty-description,
+.loading-description,
+.error-description {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  line-height: 1.5;
+  max-width: 280px;
+  margin: 0;
+}
+
+/* Estado de carga */
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Clases de riesgo para filas */
+.riesgo-bajo {
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.08), rgba(34, 197, 94, 0.04)) !important;
+}
+
+.riesgo-medio {
+  background: linear-gradient(90deg, rgba(249, 115, 22, 0.08), rgba(249, 115, 22, 0.04)) !important;
+}
+
+.riesgo-alto {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.08), rgba(239, 68, 68, 0.04)) !important;
+}
+
+/* RESPONSIVE DESIGN */
+
+/* Desktop grande (1400px+) */
+@media screen and (min-width: 1400px) {
+  #tabla-resultados {
+    font-size: 0.9rem;
+  }
+  
+  #tabla-resultados th {
+    padding: 1.25rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  #tabla-resultados td {
+    padding: 1rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .table-badge {
+    font-size: 0.675rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+/* Desktop (1024px - 1400px) */
+@media screen and (max-width: 1200px) {
+  #tabla-resultados {
+    font-size: 0.8rem;
+  }
+  
+  #tabla-resultados th {
+    padding: 0.875rem 0.625rem;
+    font-size: 0.7rem;
+  }
+  
+  #tabla-resultados td {
+    padding: 0.75rem 0.625rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Tablet vertical (768px - 1024px) */
+@media screen and (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+    height: auto;
+    gap: 1rem;
+  }
+  
+  .side-panel {
+    width: 100%;
+    max-height: 50vh;
+    order: 2;
+  }
+  
+  .map-container {
+    min-height: 50vh;
+    order: 1;
+  }
+  
+  #tabla-resultados th:nth-child(1) { width: 25%; min-width: 100px; }
+  #tabla-resultados th:nth-child(2) { width: 15%; min-width: 70px; }
+  #tabla-resultados th:nth-child(3) { width: 15%; min-width: 65px; }
+  #tabla-resultados th:nth-child(4) { width: 20%; min-width: 80px; }
+  #tabla-resultados th:nth-child(5) { width: 10%; min-width: 50px; }
+  #tabla-resultados th:nth-child(6) { width: 15%; min-width: 65px; }
+}
+
+/* Tablet horizontal / Mobile grande (480px - 768px) */
+@media screen and (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  #tabla-resultados {
+    min-width: 600px;
+    font-size: 0.75rem;
+  }
+  
+  #tabla-resultados th {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.65rem;
+    min-width: 60px;
+  }
+  
+  #tabla-resultados td {
+    padding: 0.625rem 0.5rem;
+    font-size: 0.7rem;
+  }
+  
+  .table-badge {
+    font-size: 0.55rem;
+    padding: 0.2rem 0.4rem;
+    min-width: 40px;
+  }
+  
+  .empty-content,
+  .loading-content,
+  .error-content {
+    padding: 2rem 1rem !important;
+    min-height: 150px;
+  }
+  
+  .empty-icon,
+  .loading-icon,
+  .error-icon {
+    font-size: 2rem;
+  }
+  
+  .empty-title,
+  .loading-title,
+  .error-title {
+    font-size: 1rem;
+  }
+  
+  .empty-description,
+  .loading-description,
+  .error-description {
+    font-size: 0.8rem;
+    max-width: 240px;
+  }
+}
+
+/* Mobile (320px - 480px) */
+@media screen and (max-width: 480px) {
+  #tabla-resultados {
+    min-width: 500px;
+    font-size: 0.7rem;
+  }
+  
+  #tabla-resultados th {
+    padding: 0.625rem 0.375rem;
+    font-size: 0.6rem;
+  }
+  
+  #tabla-resultados td {
+    padding: 0.5rem 0.375rem;
+    font-size: 0.65rem;
+  }
+  
+  .table-badge {
+    font-size: 0.5rem;
+    padding: 0.15rem 0.3rem;
+    min-width: 35px;
+  }
+  
+  .side-panel {
+    max-height: 45vh;
+  }
+}
+
+/* Mobile pequeño (< 320px) */
+@media screen and (max-width: 320px) {
+  #tabla-resultados {
+    min-width: 450px;
+    font-size: 0.65rem;
+  }
+  
+  #tabla-resultados th {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.55rem;
+  }
+  
+  #tabla-resultados td {
+    padding: 0.4rem 0.25rem;
+    font-size: 0.6rem;
+  }
+  
+  .table-badge {
+    font-size: 0.45rem;
+    padding: 0.1rem 0.25rem;
+    min-width: 30px;
+  }
+}
+
+/* Landscape móvil */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .main-container {
+    flex-direction: row;
+  }
+  
+  .side-panel {
+    width: 400px;
+    max-height: none;
+    order: 2;
+  }
+  
+  .map-container {
+    order: 1;
+  }
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .table-wrapper {
+    background: #111827;
+    border-color: #374151;
+  }
+  
+  .table-container {
+    background: #111827;
+  }
+  
+  .table-container::-webkit-scrollbar-track {
+    background: #1f2937;
+  }
+  
+  .table-container::-webkit-scrollbar-thumb {
+    background: #4b5563;
+  }
+  
+  .table-container::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+  }
+  
+  #tabla-resultados {
+    background: #111827;
+  }
+  
+  #tabla-resultados tbody {
+    background: #111827;
+  }
+  
+  #tabla-resultados tbody tr {
+    background: #111827;
+  }
+  
+  #tabla-resultados tbody tr:nth-child(even) {
+    background: #1f2937;
+  }
+  
+  #tabla-resultados tbody tr:hover {
+    background: #374151;
+  }
+  
+  #tabla-resultados td {
+    border-bottom-color: #374151;
+    color: #e5e7eb;
+  }
+  
+  .table-badge-low {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+  }
+  
+  .table-badge-medium {
+    background: rgba(249, 115, 22, 0.2);
+    color: #fb923c;
+  }
+  
+  .table-badge-high {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+  }
+}
+
+/* Print styles */
+@media print {
+  .table-container {
+    overflow: visible;
+    height: auto;
+  }
+  
+  #tabla-resultados {
+    font-size: 0.7rem;
+  }
+  
+  #tabla-resultados th,
+  #tabla-resultados td {
+    padding: 0.4rem 0.2rem;
+  }
+  
+  .map-container,
+  .map-controls {
+    display: none;
+  }
+  
+  .main-container {
+    flex-direction: column;
+  }
+  
+  .side-panel {
+    width: 100%;
+    max-height: none;
+  }
+}
+
+/* Animaciones suaves */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#tabla-resultados tbody tr {
+  animation: slideInUp 0.3s ease-out;
+}
+
+/* Estados focus para accesibilidad */
+#tabla-resultados tbody tr:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+}
+
+.table-badge:focus {
+  outline: 1px solid #3b82f6;
+  outline-offset: 2px;
+}
