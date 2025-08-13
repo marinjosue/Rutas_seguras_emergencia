@@ -54,6 +54,44 @@
                 
                 <div class="sidebar-content">
                     <div class="topics-list">
+                        <!-- NUEVA sección prioritaria para Bloque G -->
+                        <div class="topic-category emergency-category">
+                            <h4><i class="fas fa-building"></i> 🚨 EVACUACIÓN BLOQUE G</h4>
+                            <button class="topic-btn emergency-btn" onclick="sendQuickMessage('evacuacion_bloque_g')">
+                                🚨 Protocolo Completo Bloque G
+                            </button>
+                            <button class="topic-btn emergency-btn" onclick="sendQuickMessage('que_hago_bloque_g')">
+                                📍 ¿Qué Hago Si Estoy en Bloque G?
+                            </button>
+                            <button class="topic-btn emergency-btn" onclick="sendQuickMessage('ruta_detallada_bloque_g')">
+                                🗺️ Ruta Específica Bloque G
+                            </button>
+                        </div>
+
+                        <!-- NUEVA sección para Bloque H -->
+                        <div class="topic-category emergency-category-h">
+                            <h4><i class="fas fa-building"></i> 🏢 EVACUACIÓN BLOQUE H</h4>
+                            <button class="topic-btn emergency-btn-h" onclick="sendQuickMessage('evacuacion_bloque_h')">
+                                🚨 Protocolo Completo Bloque H
+                            </button>
+                            <button class="topic-btn emergency-btn-h" onclick="sendQuickMessage('que_hago_bloque_h')">
+                                📍 ¿Qué Hago Si Estoy en Bloque H?
+                            </button>
+                            <button class="topic-btn emergency-btn-h" onclick="sendQuickMessage('ruta_detallada_bloque_h')">
+                                🗺️ Ruta Específica Bloque H
+                            </button>
+                        </div>
+
+                        <div class="topic-category">
+                            <h4><i class="fas fa-running"></i> Otras Evacuaciones</h4>
+                            <button class="topic-btn" onclick="sendQuickMessage('rutas_evacuacion')">
+                                🗺️ Rutas Generales
+                            </button>
+                            <button class="topic-btn" onclick="sendQuickMessage('durante_erupcion')">
+                                🌋 Durante Erupción
+                            </button>
+                        </div>
+
                         <div class="topic-category">
                             <h4><i class="fas fa-first-aid"></i> Preparación</h4>
                             <button class="topic-btn" onclick="sendQuickMessage('kit_emergencia')">
@@ -74,16 +112,6 @@
                             </button>
                             <button class="topic-btn" onclick="sendQuickMessage('alertas_igepn')">
                                 📊 Alertas IGEPN
-                            </button>
-                        </div>
-
-                        <div class="topic-category">
-                            <h4><i class="fas fa-running"></i> Emergencia</h4>
-                            <button class="topic-btn" onclick="sendQuickMessage('durante_erupcion')">
-                                🌋 Durante Erupción
-                            </button>
-                            <button class="topic-btn" onclick="sendQuickMessage('rutas_evacuacion')">
-                                🗺️ Rutas Evacuación
                             </button>
                         </div>
 
@@ -121,15 +149,18 @@
                             </div>
 
                             <div class="example-queries">
-                                <h4>Ejemplos de consultas inteligentes:</h4>
+                                <h4>Consultas prioritarias:</h4>
+                                <button class="example-btn emergency-example" onclick="sendQuickMessage('evacuacion_bloque_g')">
+                                    🚨 "Protocolo evacuación Bloque G"
+                                </button>
+                                <button class="example-btn emergency-example-h" onclick="sendQuickMessage('evacuacion_bloque_h')">
+                                    🏢 "Protocolo evacuación Bloque H"
+                                </button>
                                 <button class="example-btn" onclick="sendQuickMessage('conocoto es una zona de peligro?')">
                                     "¿Conocoto es una zona segura?"
                                 </button>
                                 <button class="example-btn" onclick="sendQuickMessage('necesito evacuar familia de 4 personas desde Sangolquí')">
                                     "Plan evacuación familia Sangolquí"
-                                </button>
-                                <button class="example-btn" onclick="sendQuickMessage('explícame los riesgos si trabajo en la ESPE')">
-                                    "¿Riesgos trabajando en ESPE?"
                                 </button>
                             </div>
                             
@@ -177,6 +208,12 @@
                     
                     <!-- Quick Suggestions -->
                     <div class="quick-suggestions" id="quick-suggestions">
+                        <button class="suggestion-chip emergency-chip" onclick="sendQuickMessage('evacuacion_bloque_g')">
+                            🚨 Bloque G
+                        </button>
+                        <button class="suggestion-chip emergency-chip-h" onclick="sendQuickMessage('evacuacion_bloque_h')">
+                            🏢 Bloque H
+                        </button>
                         <button class="suggestion-chip" onclick="sendQuickMessage('¿Qué hacer si llueve ceniza?')">
                             🌋 Lluvia ceniza
                         </button>
@@ -185,9 +222,6 @@
                         </button>
                         <button class="suggestion-chip" onclick="sendQuickMessage('síntomas gases volcánicos')">
                             💨 Gases tóxicos
-                        </button>
-                        <button class="suggestion-chip" onclick="sendQuickMessage('evacuación con mascotas')">
-                            🐕 Con mascotas
                         </button>
                     </div>
                 </div>

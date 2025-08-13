@@ -1,0 +1,48 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Ruta de Evacuación - Bloque G",
+        "origen": "Bloque G - Piso 3",
+        "destino": "Punto Seguro",
+        "tipo": "ruta_evacuacion",
+        "distancia": "85 metros",
+        "tiempo_estimado": "2-3 minutos",
+        "instrucciones": [
+          "Sal del aula hacia el pasillo",
+          "Gira a mano derecha",
+          "Camina 10 metros hasta las escaleras",
+          "Baja del Piso 3 al Piso 2 (caracol cuadrado)",
+          "Continúa bajando al Piso 1",
+          "Camina 20 metros recto hacia la salida",
+          "Sal por la puerta trasera",
+          "Camina 30 metros al punto seguro"
+        ],
+        "pisos": [3, 2, 1],
+        "color": "#ef4444"
+      },
+      "geometry": {
+        "coordinates": [
+          [-78.44518612569831, -0.31307209405069614, 9],
+          [-78.4452701439883, -0.31306761314212395, 9],
+          [-78.44532279545012, -0.31306201200676753, 9],
+          [-78.44533175740115, -0.3129085408866672, 6],
+          [-78.44532727642566, -0.31284580816566177, 6],
+          [-78.44527126423218, -0.3128547699831046, 6],
+          [-78.44527686545156, -0.3129141420229047, 3],
+          [-78.44534520032771, -0.312907420659883, 3],
+          [-78.44533959910831, -0.3128536497554535, 3],
+          [-78.44528022618321, -0.31286373180050475, 3],
+          [-78.44528246667096, -0.3129085408866672, 3],
+          [-78.44530711203629, -0.31290181952360285, 3],
+          [-78.44525894154997, -0.31268785613357863, 0],
+          [-78.4452098250929, -0.3123646583541273, 0],
+          [-78.44505149739493, -0.3124279884925869, 0]
+        ],
+        "type": "LineString"
+      }
+    }
+  ]
+}

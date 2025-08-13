@@ -3,6 +3,98 @@
     "features": [
         {
             "type": "Feature",
+            "properties": {
+                "id": "evacuacion_bloque_g",
+                "name": "Evacuación Bloque G",
+                "description": "Ruta de evacuación desde Bloque G hacia punto seguro",
+                "origin": "Bloque G - Piso 3",
+                "destination": "Punto Seguro",
+                "type": "evacuation",
+                "building": "Bloque G",
+                "floor": 3,
+                "distance": "85 metros",
+                "time": "2-3 minutos",
+                "emergency": true,
+                "priority": "high",
+                "instructions": [
+                    "Sal del aula hacia el pasillo",
+                    "Gira a mano derecha en el pasillo",
+                    "Camina 10 metros hasta las escaleras",
+                    "Baja del Piso 3 al Piso 2 (escaleras en caracol)",
+                    "Continúa bajando del Piso 2 al Piso 1",
+                    "Camina 20 metros recto hacia la salida",
+                    "Sal por la puerta trasera del edificio",
+                    "Camina 30 metros al punto seguro (área verde)"
+                ]
+            },
+            "geometry": {
+                "coordinates": [
+                    [
+                        -78.44518612569831,
+                        -0.31307209405069614
+                    ],
+                    [
+                        -78.4452701439883,
+                        -0.31306761314212395
+                    ],
+                    [
+                        -78.44532279545012,
+                        -0.31306201200676753
+                    ],
+                    [
+                        -78.44533175740115,
+                        -0.3129085408866672
+                    ],
+                    [
+                        -78.44532727642566,
+                        -0.31284580816566177
+                    ],
+                    [
+                        -78.44527126423218,
+                        -0.3128547699831046
+                    ],
+                    [
+                        -78.44527686545156,
+                        -0.3129141420229047
+                    ],
+                    [
+                        -78.44534520032771,
+                        -0.312907420659883
+                    ],
+                    [
+                        -78.44533959910831,
+                        -0.3128536497554535
+                    ],
+                    [
+                        -78.44528022618321,
+                        -0.31286373180050475
+                    ],
+                    [
+                        -78.44528246667096,
+                        -0.3129085408866672
+                    ],
+                    [
+                        -78.44530711203629,
+                        -0.31290181952360285
+                    ],
+                    [
+                        -78.44525894154997,
+                        -0.31268785613357863
+                    ],
+                    [
+                        -78.4452098250929,
+                        -0.3123646583541273
+                    ],
+                    [
+                        -78.44505149739493,
+                        -0.3124279884925869
+                    ]
+                ],
+                "type": "LineString"
+            }
+        },
+        {
+            "type": "Feature",
             "properties": {},
             "geometry": {
                 "coordinates": [
